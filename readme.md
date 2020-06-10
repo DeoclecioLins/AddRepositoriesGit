@@ -10,12 +10,14 @@ A aplicação usa [API](https://api.github.com) que extrai informções do GitHu
 ---
 > O que precisa configurar
 * Instalar o Yarn
+* yarn init
+* yarn add @babel/cli
+* yarn add @babel/preset-env
+* yarn add @babel/plugin-proposal-object-rest-spread
+* yarn add babel-loader@9.0.0-beta.0 -D
+* yarn add @babel/polyfill -D 
+* yarn add @babel/plugin-transform-async-to-generator -D
 * yarn add webpack webpack-cli -D
-* Instalar as dependencias do Babel
-  * yarn add @babel/plugin-proposal-object-rest-spread
-  * yarn add babel-loader@9.0.0-beta.0 -D
-  * yarn add @babel/polyfill -D 
-  * yarn add @babel/plugin-transform-async-to-generator -D
 * yarn add webpack-dev-server -D
 
 Obs.: Os Arquivos de configurações são basicamente o (packege.json e webpack.config.js), todo o passo a passo está no curso que é gratuíto.

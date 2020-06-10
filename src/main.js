@@ -5,26 +5,23 @@ class App {
         this.repositories = JSON.parse(localStorage.getItem('list_repository')) || [];
 
         this.formEl = document.getElementById('repo-form');        
-        this.excluirEl = document.getElementById('repo-excluir');        
+        
+        this.excluirEl = document.getElementById('repo-list').querySelectorAll('#repo-excluir');
+        
         this.inputEl = document.querySelector('input[name=repository]');
         this.listEl = document.getElementById('repo-list');
-
-        this.registerHandlers();
+        this.test = [];
         this.render();
-        this.delRepositories();
-        
+        this.registerHandlers();
     }
-    registerHandlers(){
-        this.formEl.onsubmit = event => this.addRepositories(event);              
-        
-    }
-    delRepositories(){
-        this.excluirEl.onclick = () => {
-
-            const valuePos = this.excluirEl.value;
-            console.log(valuePos);
-        }
-    }
+    delRepo(pos){
+        console.log(pos);
+        this.repositories.splice(pos,1);
+        this.render();
+    }          
+    registerHandlers(){                
+        this.formEl.onsubmit = event => this.addRepositories(event);        
+    }    
     setLoading(loading = true){
         if(loading === true){
             let loadingEl = document.createElement('span');
@@ -36,7 +33,6 @@ class App {
             document.getElementById('loading').remove();
         }
     }
-
     async addRepositories(event){
         event.preventDefault();
 
@@ -69,8 +65,6 @@ class App {
         
         this.setLoading(false);
     }
-    
-    
     render() {
         this.listEl.innerHTML = '';
         
@@ -91,11 +85,11 @@ class App {
 
             let linkDelEL = document.createElement('a');
             linkDelEL.setAttribute('id','repo-excluir');
-            linkDelEL.setAttribute('href','#');
             let possicao = this.repositories.indexOf(repo);
-            linkDelEL.setAttribute('value',possicao);
+            linkDelEL.setAttribute('name','repo-excluir');
+            linkDelEL.setAttribute('href','#');
             linkDelEL.appendChild(document.createTextNode('Excluir'));
-
+            
             let listItemEl = document.createElement('li');
             listItemEl.appendChild(imgEl);
             listItemEl.appendChild(titleEl);
@@ -104,18 +98,28 @@ class App {
             listItemEl.appendChild(linkDelEL);
 
             this.listEl.appendChild(listItemEl);
-            this.saveToStorage();
-            
         });
-        
-    }
-    
-    
+        this.els = document.querySelectorAll('a[name=repo-excluir]');
+        this.els.forEach((elms, index)=>{
+            document.querySelectorAll('a[name=repo-excluir]')[index].onclick = 
+            () => this.delRepo(index);
+        });        
+        this.saveToStorage();
+    }   
     saveToStorage() {
         localStorage.setItem('list_repository', JSON.stringify(this.repositories));
     }
     
 }
 
-
 new App;
+
+
+   
+
+
+
+
+
+
+
